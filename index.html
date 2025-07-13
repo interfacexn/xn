@@ -160,21 +160,21 @@
 
     <script>
     
-    const encryptedValidateUrl = "aHR0cHM6Ly9hcGkueG5rZWppLnRvcC9hcGlfc2V0dGluZ3MucGhw";
+    const encryptedValidateUrl = "aHR0cHM6Ly9hcGlmaC54bmtlamkudG9wL2FwaV9zZXR0aW5ncy5waHA=";
     
-    // 添加解密函数
+
     function decryptUrl(encryptedUrl) {
         try {
-            // 使用atob进行Base64解码
+          
             return atob(encryptedUrl);
         } catch (error) {
             console.error('解密URL失败:', error);
-            // 解密失败时返回空字符串或默认URL
+          
             return '';
         }
     }
     
-    // Base64编码函数
+
     function base64Encode(str) {
         return btoa(unescape(encodeURIComponent(str)));
     }
@@ -189,26 +189,25 @@
             const qrcodeDiv = document.getElementById('qrcode');
             const toast = document.getElementById('toast');
 
-            // 修改为完整的远程地址
+          
             const apiSettingsUrl = decryptUrl(encryptedValidateUrl); 
 
-            // 检查解密后的URL是否有效
+      
             if (!apiSettingsUrl) {
                 showToast('无法获取接口配置，请稍后再试', 'error');
                 return;
             }
 
-            // 从 PHP 文件加载接口数据
             fetch(`${apiSettingsUrl}?action=get_apis`)
                .then(response => {
-                    // 检查HTTP响应状态
+                 
                     if (!response.ok) {
                         throw new Error(`HTTP错误! 状态: ${response.status}`);
                     }
                     return response.json();
                 })
                .then(data => {
-                    // 对接口数据进行反转，使最新添加的接口显示在最后
+                    
                     data.reverse();
                     data.forEach(api => {
                         const option = document.createElement('option');
